@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Admin\Implementations\" />
-    <Folder Include="Admin\Models\" />
+    <ProjectReference Include="..\FoodPlace.Common\FoodPlace.Common.csproj" />
+    <ProjectReference Include="..\FoodPlace.Data\FoodPlace.Data.csproj" />
+    <ProjectReference Include="..\FoodPlace.Models\FoodPlace.Models.csproj" />
   </ItemGroup>
 
 </Project>
