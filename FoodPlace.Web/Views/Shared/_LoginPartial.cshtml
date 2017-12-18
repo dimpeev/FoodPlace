@@ -1,5 +1,4 @@
 @using Microsoft.AspNetCore.Identity
-
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
@@ -7,14 +6,22 @@
 {
     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
-            @if (User.IsInRole(WebConstants.AdministratorRole) || User.IsInRole(WebConstants.OwnerRole))
+            @if (User.IsInRole(WebConstants.OwnerRole))
             {
-
+                <li>
+                    <a asp-area="Owner" asp-controller="Menus" asp-action="All" title="Manage">My Menus</a>
+                </li>
+                <li>
+                    <a asp-area="Owner" asp-controller="Products" asp-action="All" title="Manage">My Products</a>
+                </li>
+                <li>
+                    <a asp-area="Owner" asp-controller="Restaurants" asp-action="All" title="Manage">My Restaurants</a>
+                </li>
             }
             @if (User.IsInRole(WebConstants.AdministratorRole))
             {
                 <li>
-                    <a asp-area="Admin" asp-controller="Cities" asp-action="Index" title="Manage">Manage Cities</a>
+                    <a asp-area="Admin" asp-controller="Cities" asp-action="All" title="Manage">Manage Cities</a>
                 </li>
             }
             <li>

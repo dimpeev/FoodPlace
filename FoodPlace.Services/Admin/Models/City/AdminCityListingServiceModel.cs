@@ -1,4 +1,4 @@
-﻿namespace FoodPlace.Services.Admin.Models
+﻿namespace FoodPlace.Services.Admin.Models.City
 {
     using AutoMapper;
     using Common.Mapping;
@@ -16,8 +16,8 @@
         {
             mapper
                 .CreateMap<City, AdminCityListingServiceModel>()
-                .ForMember(r => r.NumberOfRestaurants,
-                    cfg => cfg.MapFrom(r => r.Restaurants.Count));
+                .ForMember(c => c.NumberOfRestaurants,
+                    cfg => cfg.MapFrom(c => c.Restaurants.Count));
         }
     }
 }

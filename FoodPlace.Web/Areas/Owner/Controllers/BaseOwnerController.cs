@@ -4,7 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     [Area(WebConstants.OwnerArea)]
-    [Authorize(Roles = WebConstants.AdministratorRole + "," + WebConstants.OwnerRole)]
+    [Authorize(Roles = WebConstants.OwnerRole)]
     public class BaseOwnerController : Controller
     {
     }

@@ -1,0 +1,39 @@
+﻿@model MenusListingViewModel
+@{
+    ViewData["Title"] = "My menus";
+}
+
+<h2>@ViewData["Title"]</h2>
+<div class="row">
+    <div class="col-md-4">
+        @if (Model.TotalMenus == 0)
+        {
+            <p>You have no menus added.</p>
+        }
+        else
+        {
+            <table class="table table-hover table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th class="col-sm-2 text-center">Name</th>
+                        <th class="col-sm-2 text-center">Products count</th>
+                        <th class="col-sm-2 text-center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var menu in Model.Menus)
+                    {
+                    <tr>
+                        <td class="text-center">@menu.Name</td>
+                        <td class="text-center">@menu.NumberOfPrductsInMenu</td>
+                        <td class="text-center">
+                            <a asp-area="Owner" asp-controller="Menus" asp-action="Edit" asp-route-id="@menu.Id" class="btn btn-warning btn-xs">Edit</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        <a asp-area="Owner" asp-controller="Menus" asp-action="Add" class="btn btn-default">Add new menu</a>
+    </div>
+</div>

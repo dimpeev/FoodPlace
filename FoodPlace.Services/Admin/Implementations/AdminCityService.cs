@@ -4,11 +4,11 @@
     using Data;
     using FoodPlace.Models;
     using Microsoft.EntityFrameworkCore;
-    using Models;
+    using Models.City;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using System;
 
     public class AdminCityService : IAdminCityService
     {
@@ -43,17 +43,17 @@
         }
 
         public async Task<bool> ExistsByNameAsync(string name)
-            => await db
+            => await this.db
                 .Cities
                 .AnyAsync(c => string.Equals(c.Name, name, StringComparison.CurrentCultureIgnoreCase));
 
         public async Task<bool> ExistsByNameWithDifferentIdAsync(int id, string name)
-            => await db
+            => await this.db
                 .Cities
                 .AnyAsync(c => string.Equals(c.Name, name, StringComparison.CurrentCultureIgnoreCase) && c.Id != id);
 
         public async Task<AdminCityEditServiceModel> ByIdAsync(int id)
-            => await db
+            => await this.db
                 .Cities
                 .Where(c => c.Id == id)
                 .ProjectTo<AdminCityEditServiceModel>()
@@ -71,5 +71,10 @@
 
             await this.db.SaveChangesAsync();
         }
+
+        public async Task<int> TotalCitiesAsync()
+            => await this.db
+            .Cities
+            .CountAsync();
     }
 }

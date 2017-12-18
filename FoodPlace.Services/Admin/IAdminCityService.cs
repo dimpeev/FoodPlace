@@ -1,6 +1,6 @@
 ﻿namespace FoodPlace.Services.Admin
 {
-    using Models;
+    using Models.City;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -17,5 +17,7 @@
         Task<AdminCityEditServiceModel> ByIdAsync(int id);
 
         Task Edit(int id, string name);
+
+        Task<int> TotalCitiesAsync();
     }
 }

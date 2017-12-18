@@ -5,7 +5,6 @@
     using Models;
     using Services.Admin;
     using System.Threading.Tasks;
-    using Services.Admin.Models;
 
     public class CitiesController : BaseAdminController
     {
@@ -16,7 +15,7 @@
             this.adminCityService = adminCityService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> All()
             => View(await adminCityService.AllAsync());
 
         public IActionResult Add()
@@ -42,7 +41,7 @@
 
             this.TempData.AddSuccessMessage("City added successfully.");
 
-            return RedirectToAction(nameof(CitiesController.Index));
+            return RedirectToAction(nameof(CitiesController.All));
         }
 
         public async Task<IActionResult> Edit(int id)
@@ -52,11 +51,15 @@
             {
                 return NotFound();
             }
-            return View(city);
+            return View(new EditCityFormModel
+            {
+                Id = city.Id,
+                Name = city.Name
+            });
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(AdminCityEditServiceModel model)
+        public async Task<IActionResult> Edit(EditCityFormModel model)
         {
             if (await adminCityService.ExistsByNameWithDifferentIdAsync(model.Id, model.Name))
             {
@@ -73,7 +76,7 @@
 
             this.TempData.AddSuccessMessage("City edited successfully.");
 
-            return RedirectToAction(nameof(CitiesController.Index));
+            return RedirectToAction(nameof(CitiesController.All));
         }
     }
 }

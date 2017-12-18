@@ -1,8 +1,6 @@
 ﻿namespace FoodPlace.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using Models;
-    using System.Diagnostics;
 
     public class HomeController : Controller
     {
@@ -11,9 +9,17 @@
             return View();
         }
 
-        public IActionResult Error()
+        public IActionResult Error(int? statusCode = null)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (statusCode.HasValue)
+            {
+                if (statusCode == 404 || statusCode == 500)
+                {
+                    var viewName = statusCode.ToString();
+                    return View(viewName);
+                }
+            }
+            return View();
         }
     }
 }

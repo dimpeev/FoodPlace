@@ -1,4 +1,4 @@
-﻿namespace FoodPlace.Services.Admin.Models
+﻿namespace FoodPlace.Services.Admin.Models.City
 {
     using Common.Mapping;
     using FoodPlace.Models;
