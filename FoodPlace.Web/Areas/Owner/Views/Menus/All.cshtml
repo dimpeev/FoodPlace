@@ -5,7 +5,7 @@
 
 <h2>@ViewData["Title"]</h2>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         @if (Model.TotalMenus == 0)
         {
             <p>You have no menus added.</p>
@@ -34,6 +34,6 @@
                 </tbody>
             </table>
         }
-        <a asp-area="Owner" asp-controller="Menus" asp-action="Add" class="btn btn-default">Add new menu</a>
+        <a asp-area="Owner" asp-controller="Menus" asp-action="Add" class="btn btn-default">Add menu</a>
     </div>
 </div>

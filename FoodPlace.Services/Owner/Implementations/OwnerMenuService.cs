@@ -53,9 +53,9 @@
                 .ProjectTo<OwnerEditMenuServiceModel>()
                 .FirstOrDefaultAsync();
 
-        public async Task Edit(int id, string name, string ownerId)
+        public async Task Edit(int id, string name, IList<int> selectedProducts, string ownerId)
         {
-            var menu = await this.db.Menus.FirstOrDefaultAsync(m => m.Id == id && m.OwnerId == ownerId);
+            var menu = await this.db.Menus.Include(m => m.Products).FirstOrDefaultAsync(m => m.Id == id && m.OwnerId == ownerId);
 
             if (menu == null)
             {
@@ -63,6 +63,19 @@
             }
 
             menu.Name = name;
+
+            foreach (var productId in selectedProducts)
+            {
+                if (menu.Products.Any(p => p.ProductId == productId))
+                {
+                    continue;
+                }
+                menu.Products.Add(new MenuProduct
+                {
+                    ProductId = productId,
+                    MenuId = id
+                });
+            }
 
             await db.SaveChangesAsync();
         }

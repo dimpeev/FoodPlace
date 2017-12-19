@@ -7,18 +7,38 @@
 <div class="row">
     <div class="col-md-4">
         <section>
-            <form method="post">
+            <form method="post" asp-controller="Menus" asp-action="Edit">
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Name"></label>
                     <input asp-for="Name" class="form-control" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
+                <section>
+                    <div class="form-group">
+                        <label>Products in menu</label>
+                        <table class="table table-bordered table-hover col-md-2">
+                            @foreach (var product in Model.Products)
+                            {
+                                <tr>
+                                    <td class="col-md-2">@product.Info</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </section>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-default">Edit menu</button>
+                    <label asp-for="SelectedProducts"></label>
+                    <select asp-for="SelectedProducts" asp-items=@Model.AvailableProducts class="form-control"></select>
+                    <span asp-validation-for="SelectedProducts" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default">Save changes</button>
                     <a asp-area="Owner" asp-controller="Menus" asp-action="All">Back</a>
                 </div>
             </form>
         </section>
+    </div>
+    <div class="col-md-4">
     </div>
 </div>

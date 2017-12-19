@@ -12,7 +12,7 @@
 
         public DbSet<Order> Orders { get; set; }
 
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Food> Products { get; set; }
 
         public DbSet<Restaurant> Restaurants { get; set; }
 
@@ -46,6 +46,12 @@
                 .HasForeignKey(r => r.MenuId);
 
             builder
+                .Entity<Menu>()
+                .HasMany(m => m.Products)
+                .WithOne(p => p.Menu)
+                .HasForeignKey(p => p.MenuId);
+
+            builder
                 .Entity<MenuProduct>()
                 .HasKey(mp => new { mp.MenuId, mp.ProductId });
 
@@ -53,13 +59,13 @@
                 .Entity<MenuProduct>()
                 .HasOne(mp => mp.Menu)
                 .WithMany(p => p.Products)
-                .HasForeignKey(mp => mp.ProductId);
+                .HasForeignKey(mp => mp.MenuId);
 
             builder
                 .Entity<MenuProduct>()
                 .HasOne(mp => mp.Product)
                 .WithMany(m => m.Menus)
-                .HasForeignKey(mp => mp.MenuId);
+                .HasForeignKey(mp => mp.ProductId);
 
             builder
                 .Entity<Order>()
@@ -90,7 +96,7 @@
                 .HasForeignKey(op => op.ProductId);
 
             builder
-                .Entity<Product>()
+                .Entity<Food>()
                 .HasOne(p => p.Owner)
                 .WithMany(o => o.Products)
                 .HasForeignKey(p => p.OwnerId);

@@ -15,6 +15,6 @@
 
         public ICollection<Menu> Menus { get; set; } = new List<Menu>();
 
-        public ICollection<Product> Products { get; set; } = new List<Product>();
+        public ICollection<Food> Products { get; set; } = new List<Food>();
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace FoodPlace.Web
 {
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore;
+    using Microsoft.AspNetCore.Hosting;
 
     public class Program
     {

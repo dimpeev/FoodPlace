@@ -10,7 +10,7 @@
 
         public int ProductId { get; set; }
 
-        public Product Product { get; set; }
+        public Food Product { get; set; }
 
         [Required]
         [Range(0, int.MaxValue)]

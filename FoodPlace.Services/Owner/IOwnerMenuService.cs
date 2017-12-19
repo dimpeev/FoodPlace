@@ -14,6 +14,6 @@
 
         Task<OwnerEditMenuServiceModel> ByIdAsync(int id);
 
-        Task Edit(int id, string name, string ownerId);
+        Task Edit(int id, string name, IList<int> selectedProducts, string ownerId);
     }
 }
