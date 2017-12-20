@@ -30,7 +30,7 @@
 
         public async Task Create(string name, string ownerId)
         {
-            var ownerExists = await db.Users.AnyAsync(u => u.Id == ownerId);
+            var ownerExists = await this.db.Users.AnyAsync(u => u.Id == ownerId);
             if (!ownerExists)
             {
                 return;
@@ -77,7 +77,7 @@
                 });
             }
 
-            await db.SaveChangesAsync();
+            await this.db.SaveChangesAsync();
         }
     }
 }

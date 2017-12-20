@@ -9,5 +9,11 @@
         Task<IEnumerable<OwnerRestaurantListingServiceModel>> MyRestaurantsAsync(string ownerId);
 
         Task<int> TotalRestaurantsAsync(string ownerId);
+
+        Task Create(string name, string description, int cityId, int menuId, string ownerId);
+
+        Task<OwnerEditRestaurantServiceModel> ByIdAsync(int id);
+
+        Task Edit(int id, string name, string description, int cityId, int menuId, string userId);
     }
 }

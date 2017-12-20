@@ -1,9 +1,11 @@
-﻿namespace FoodPlace.Models
+﻿namespace FoodPlace.Web.Areas.Owner.Models.Restaurants
 {
+    using FoodPlace.Models;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class Restaurant
+    public class EditRestaurantFormModel
     {
         public int Id { get; set; }
 
@@ -15,18 +17,14 @@
         [MaxLength(ModelConstants.RestaurantDescriptionMaxLength)]
         public string Description { get; set; }
 
+        [Display(Name = "City")]
         public int CityId { get; set; }
 
-        public City City { get; set; }
+        public IEnumerable<SelectListItem> Cities { get; set; } = new List<SelectListItem>();
 
+        [Display(Name = "Menu")]
         public int MenuId { get; set; }
 
-        public Menu Menu { get; set; }
-
-        public ICollection<Order> Orders { get; set; } = new List<Order>();
-
-        public string OwnerId { get; set; }
-
-        public User Owner { get; set; }
+        public IEnumerable<SelectListItem> Menus { get; set; } = new List<SelectListItem>();
     }
 }

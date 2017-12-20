@@ -1,10 +1,10 @@
 ﻿namespace FoodPlace.Data.Migrations
 {
     using FoodPlace.Data;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Infrastructure;
     using Microsoft.EntityFrameworkCore.Metadata;
     using Microsoft.EntityFrameworkCore.Migrations;
-    using Microsoft.EntityFrameworkCore;
     using System;
 
     [DbContext(typeof(FoodPlaceDbContext))]
