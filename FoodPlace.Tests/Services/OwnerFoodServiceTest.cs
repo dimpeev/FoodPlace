@@ -3,14 +3,13 @@
     using Data;
     using FluentAssertions;
     using FoodPlace.Services.Owner.Implementations;
-    using Microsoft.AspNetCore.Identity;
+    using FoodPlace.Services.Owner.Models.Food;
     using Microsoft.EntityFrameworkCore;
     using Models;
-    using Moq;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using FoodPlace.Services.Owner.Models.Food;
     using Xunit;
 
     public class OwnerFoodServiceTest
@@ -42,13 +41,16 @@
             // Assert
             result
                 .Should()
+                .BeAssignableTo<IEnumerable<OwnerProductListingServiceModel>>();
+            result
+                .Should()
                 .Match(r => r.ElementAt(0).Name == "Banana"
                             && r.ElementAt(1).Name == "Peach")
                 .And.HaveCount(2);
         }
 
         [Fact]
-        public async Task OwnerFoodServiceTotalProductsAsyncShould_ReturnFoodCountAddedByOneOwner()
+        public async Task OwnerFoodServiceTotalProductsAsyncShould_ReturnFoodAddedByOneOwnerCount()
         {
             // Arrange
             var db = this.GetDatabase();
@@ -89,7 +91,7 @@
             await ownerFoodService.Create("TestName", "TestDescription", 1m, "admin");
 
             // Assert
-            db.Products.Count().Should().NotBe(1);
+            db.Products.Count().Should().Be(0);
         }
 
         [Fact]
@@ -213,9 +215,5 @@
 
             return new FoodPlaceDbContext(dbOptions);
         }
-
-        private Mock<UserManager<User>> GetUserManagerMock()
-            => new Mock<UserManager<User>>(
-                Mock.Of<IUserStore<User>>(), null, null, null, null, null, null, null, null);
     }
 }
