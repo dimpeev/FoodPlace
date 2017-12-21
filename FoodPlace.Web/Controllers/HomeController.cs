@@ -1,6 +1,8 @@
 ﻿namespace FoodPlace.Web.Controllers
 {
+    using FoodPlace.Models;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Models.Home;
@@ -11,10 +13,12 @@
     public class HomeController : Controller
     {
         private readonly IHomeService homeService;
+        private readonly UserManager<User> userManager;
 
-        public HomeController(IHomeService homeService)
+        public HomeController(IHomeService homeService, UserManager<User> userManager)
         {
             this.homeService = homeService;
+            this.userManager = userManager;
         }
 
         public async Task<IActionResult> Index(int? id)
@@ -42,6 +46,17 @@
         public async Task<IActionResult> Details(int id)
         {
             return View(await this.homeService.RestaurantMenuAsync(id));
+        }
+
+        [Authorize]
+        public async Task<IActionResult> MyOrders()
+        {
+            var user = await userManager.GetUserAsync(User);
+
+            return View(new HomeMyOrdersViewModel
+            {
+                MyOrders = await this.homeService.MyOrdersAsync(user.Id)
+            });
         }
 
         public IActionResult Error(int? statusCode = null)

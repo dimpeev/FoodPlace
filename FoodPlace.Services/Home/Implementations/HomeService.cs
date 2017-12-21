@@ -1,5 +1,6 @@
 ﻿namespace FoodPlace.Services.Home.Implementations
 {
+    using System.Collections.Generic;
     using AutoMapper.QueryableExtensions;
     using Data;
     using Microsoft.EntityFrameworkCore;
@@ -48,5 +49,12 @@
                 Products = productsInMenu
             });
         }
+
+        public async Task<IEnumerable<HomeMyOrdersListing>> MyOrdersAsync(string userId)
+            => await this.db
+                .Orders
+                .Where(o => o.ClientId == userId)
+                .ProjectTo<HomeMyOrdersListing>()
+                .ToListAsync();
     }
 }
