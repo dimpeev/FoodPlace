@@ -44,7 +44,7 @@
             var menus = await GetMenus(user.Id);
             if (!cities.Any() || !menus.Any())
             {
-                this.TempData.AddErrorMessage("Can not add restaurant until there is atleast one city and one men. ");
+                this.TempData.AddErrorMessage("Can not add restaurant until there is atleast one city and one menu. ");
                 return RedirectToAction(nameof(RestaurantsController.All));
             }
 

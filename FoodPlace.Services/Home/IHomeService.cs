@@ -6,5 +6,7 @@
     public interface IHomeService
     {
         Task<HomeIndexServiceModel> AllAsync();
+
+        Task<HomeRestaurantMenuListingServiceModel> RestaurantMenuAsync(int restaurantId);
     }
 }

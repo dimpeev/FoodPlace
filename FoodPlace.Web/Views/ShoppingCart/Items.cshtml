@@ -1,0 +1,47 @@
+﻿@model CartViewModel
+@{
+    ViewData["Title"] = "Items in cart";
+}
+
+<h2>@ViewData["Title"]</h2>
+<div class="row">
+    @if (!Model.Items.Any())
+    {
+        <p>Your cart is empty.</p>
+    }
+    else
+    {
+        <table class="table table-hover table-bordered text-center">
+            <thead>
+                <tr>
+                    <th class="col-md-2 text-center">Name</th>
+                    <th class="col-md-4 text-center">Description</th>
+                    <th class="col-md-2 text-center">Price</th>
+                    <th class="col-md-2 text-center">Quantity</th>
+                    <th class="col-md-2 text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.Items)
+                {
+                    <tr>
+                        <td class="col-md-2 text-center">@product.ProductName</td>
+                        <td class="col-md-4 text-center">@product.ProductDescription</td>
+                        <td class="col-md-2 text-center">$@product.ProductPrice</td>
+                        <td class="col-md-2 text-center">@product.ProductQuantity</td>
+                        <td class="col-md-2 text-center"><a asp-area="" asp-controller="ShoppingCart" asp-action="RemoveFromCart" asp-route-id=@product.ProductId>Remove</a></td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" class="text-right">Total price: $@Model.Items.Sum(p => p.ProductPrice * p.ProductQuantity)</td>
+                </tr>
+            </tfoot>
+        </table>
+        <form method="post" asp-controller="ShoppingCart" asp-action="FinishOrder">
+            <a asp-area="" asp-controller="Home" asp-action="Details" asp-route-id=@Model.RestauratId>Back to menu</a>
+            <button type="submit" class="btn btn-default">Finish order</button>
+        </form>
+    }
+</div>

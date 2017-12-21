@@ -13,6 +13,7 @@
                 .GetAssembly(typeof(IService))
                 .GetTypes()
                 .Where(t => t.IsClass &&
+                            t.GetInterfaces().All(i => i != typeof(IServiceSingleton)) &&
                             t.GetInterfaces().Any(i => i.Name == $"I{t.Name}"))
                 .Select(t => new
                 {

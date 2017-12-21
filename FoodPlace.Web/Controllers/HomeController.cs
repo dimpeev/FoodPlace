@@ -1,11 +1,12 @@
 ﻿namespace FoodPlace.Web.Controllers
 {
-    using System.Linq;
-    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Models.Home;
     using Services.Home;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class HomeController : Controller
     {
@@ -18,11 +19,11 @@
 
         public async Task<IActionResult> Index(int? id)
         {
-            var result = await homeService.AllAsync();
+            var result = await this.homeService.AllAsync();
 
             var model = new HomeRestaurantListingViewModel
             {
-                Restaurants = result.restaurants.Where(r => id == null ? r.Id != -1 : r.Id == id),
+                Restaurants = result.restaurants.Where(r => id == null ? r.CityId != -1 : r.CityId == id),
                 Cities = result
                     .cities
                     .Select(c => new SelectListItem
@@ -37,9 +38,10 @@
             return View(model);
         }
 
-        public IActionResult Details(int id)
+        [Authorize]
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+            return View(await this.homeService.RestaurantMenuAsync(id));
         }
 
         public IActionResult Error(int? statusCode = null)

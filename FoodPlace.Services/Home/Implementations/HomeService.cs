@@ -4,6 +4,7 @@
     using Data;
     using Microsoft.EntityFrameworkCore;
     using Models;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class HomeService : IHomeService
@@ -25,6 +26,27 @@
                 cities = allCities,
                 restaurants = allRestaurants
             };
+        }
+
+        public async Task<HomeRestaurantMenuListingServiceModel> RestaurantMenuAsync(int restaurantId)
+        {
+            var restaurant = await this.db.Restaurants.Include(r => r.Menu).FirstOrDefaultAsync(r => r.Id == restaurantId);
+            if (restaurant?.Menu == null)
+            {
+                return new HomeRestaurantMenuListingServiceModel();
+            }
+
+            var productsInMenu = await this.db
+                .Products
+                .Where(p => p.Menus.Any(m => m.MenuId == restaurant.MenuId))
+                .ProjectTo<ProductsInMenuListingServiceModel>()
+                .ToListAsync();
+
+            return(new HomeRestaurantMenuListingServiceModel
+            {
+                RestaurantId = restaurantId,
+                Products = productsInMenu
+            });
         }
     }
 }

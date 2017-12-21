@@ -10,5 +10,7 @@
 
         public const string TempDataSuccessMessageKey = "SuccessMessage";
         public const string TempDataErrorMessageKey = "ErrorMessage";
+
+        public const string ShoppingCartIdName = "Shopping_Cart_Id";
     }
 }

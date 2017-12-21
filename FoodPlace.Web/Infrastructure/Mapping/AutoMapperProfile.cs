@@ -2,8 +2,8 @@
 {
     using AutoMapper;
     using Common.Mapping;
-    using System.Linq;
     using System;
+    using System.Linq;
 
     public class AutoMapperProfile : Profile
     {

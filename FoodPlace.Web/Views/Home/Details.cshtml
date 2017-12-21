@@ -1,7 +1,36 @@
-﻿@{
+﻿@model HomeRestaurantMenuListingServiceModel
+@{
     ViewData["Title"] = "Details";
 }
 
+<h2>@ViewData["Title"]</h2>
 <div class="row">
-
+    @if (!Model.Products.Any())
+    {
+        <p>There are not products in this restaurant. Please check back later.</p>
+    }
+    else
+    {
+        <table class="table table-hover table-bordered text-center">
+            <thead>
+                <tr>
+                    <th class="col-md-2 text-center">Name</th>
+                    <th class="col-md-4 text-center">Description</th>
+                    <th class="col-md-2 text-center">Price</th>
+                    <th class="col-md-2 text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var food in Model.Products)
+            {
+                <tr>
+                    <td class="col-md-2 text-center">@food.Name</td>
+                    <td class="col-md-4 text-center">@food.Description</td>
+                    <td class="col-md-2 text-center">$@food.Price</td>
+                    <td class="col-md-2 text-center"><a asp-area="" asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id="@food.Id" asp-route-restaurantId="@Model.RestaurantId" class="btn btn-info btn-xs">Add to cart</a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
 </div>

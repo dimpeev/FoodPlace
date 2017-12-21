@@ -7,9 +7,9 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Models.Account;
+    using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
-    using System;
 
     [Authorize]
     [Route("[controller]/[action]")]

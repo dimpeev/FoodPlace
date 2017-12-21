@@ -21,12 +21,12 @@
 
         public async Task<IActionResult> All()
         {
-            var ownerId = userManager.GetUserId(User);
+            var user = await userManager.GetUserAsync(User);
 
             return View(new FoodListingViewModel
             {
-                Products = await ownerFoodService.MyProductsAsync(ownerId),
-                TotalProducts = await ownerFoodService.TotalProductsAsync(ownerId)
+                Products = await ownerFoodService.MyProductsAsync(user.Id),
+                TotalProducts = await ownerFoodService.TotalProductsAsync(user.Id)
             });
         }
 

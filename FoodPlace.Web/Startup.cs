@@ -11,6 +11,8 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Services.ShoppingCart;
+    using Services.ShoppingCart.Implementations;
 
     public class Startup
     {
@@ -38,6 +40,11 @@
                 .AddDefaultTokenProviders();
 
             services.AddDomainServices();
+
+            services.AddSingleton<IShoppingCartService, ShoppingCartService>();
+
+            services.AddSession();
+
             services.AddRouting(routing => routing.LowercaseUrls = true);
 
             services.AddAutoMapper();
@@ -63,6 +70,8 @@
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
