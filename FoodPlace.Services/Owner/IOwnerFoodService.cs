@@ -1,8 +1,8 @@
 ﻿namespace FoodPlace.Services.Owner
 {
+    using Models.Food;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Models.Food;
 
     public interface IOwnerFoodService
     {

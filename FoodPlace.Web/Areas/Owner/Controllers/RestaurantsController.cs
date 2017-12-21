@@ -40,10 +40,18 @@
         public async Task<IActionResult> Add()
         {
             var user = await userManager.GetUserAsync(User);
+            var cities = await GetCities();
+            var menus = await GetMenus(user.Id);
+            if (!cities.Any() || !menus.Any())
+            {
+                this.TempData.AddErrorMessage("Can not add restaurant until there is atleast one city and one men. ");
+                return RedirectToAction(nameof(RestaurantsController.All));
+            }
+
             return View(new AddRestaurantFormModel
             {
-                Cities = await GetCities(),
-                Menus = await GetMenus(user.Id)
+                Cities = cities,
+                Menus = menus
             });
         }
 

@@ -11,6 +11,7 @@
         public string Name { get; set; }
 
         public int NumberOfPrductsInMenu { get; set; }
+
         public void ConfigureMapping(Profile mapper)
         {
             mapper
